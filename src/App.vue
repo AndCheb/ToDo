@@ -2,9 +2,20 @@
   export default {
     data() {
       return {
-
+        cards: [
+          {
+            id: 1,
+            title: new Date().toLocaleString(),
+            text: 'some text lorem',
+          },
+          {
+            id: 1,
+            title: new Date().toLocaleString(),
+            text: 'some text lorem',
+          },
+        ]
       }
-    }
+    },
   }
 </script>
   
@@ -27,10 +38,26 @@
       <div class="input-group">
         <span class="input-group-text">To do:</span>
         <textarea class="form-control" aria-label="With textarea"></textarea>
+        <button type="button" class="btn btn-info">Add</button>
       </div>
     </div>
 
   </nav>
+
+  <div class="cards">
+    <div class="card mb-3"  v-for="card in cards" :key="card.id">
+      <div class="card-body">
+        <h5 class="card-title">{{ card.title }}</h5>
+        <p class="card-text mb-5">{{ card.text }}</p>
+        <hr>
+        <div class="card-buttons">
+          <button type="button" class="btn btn-success">Complete</button>
+          <button type="button" class="btn btn-danger">Remove</button>
+          <button type="button" class="btn btn-secondary">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 </template>

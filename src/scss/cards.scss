@@ -1,0 +1,46 @@
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    grid-auto-flow: dense;
+    column-gap: 40px;
+    margin-inline: auto;
+    width: 90%;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: end;
+  column-gap: 20px;
+}
+
+.card {
+  max-width: 350px;
+}
+
+@media (max-width: 870px) {
+  .cards {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 720px) {
+  .cards {
+    column-gap: 20px;
+    width: 95%;
+  }
+
+  .card-buttons button {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 660px) {
+  .cards {
+    grid-template-columns: repeat(auto-fill, 100%);
+    justify-content: center;
+  }
+
+  .card {
+    max-width: 100%;
+  }
+}
