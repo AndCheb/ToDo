@@ -17,6 +17,15 @@
   max-width: 350px;
 }
 
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-text {
+  flex-grow: 1;
+}
+
 @media (max-width: 870px) {
   .cards {
     justify-content: space-around;

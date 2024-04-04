@@ -1,21 +1,31 @@
 <script>
+
   export default {
     data() {
       return {
+        noteId: 1,
+        noteText: '',
         cards: [
           {
-            id: 1,
-            title: new Date().toLocaleString(),
-            text: 'some text lorem',
-          },
-          {
-            id: 1,
+            id: 0,
             title: new Date().toLocaleString(),
             text: 'some text lorem',
           },
         ]
       }
     },
+
+    methods: {
+      addNote() {
+        if (this.noteText.trim().length)
+        this.cards.push({
+          id: this.noteId++,
+          title: new Date().toLocaleString(),
+          text: this.noteText,
+        });
+        this.noteText = '';
+      }
+    }
   }
 </script>
   
@@ -37,8 +47,16 @@
 
       <div class="input-group">
         <span class="input-group-text">To do:</span>
-        <textarea class="form-control" aria-label="With textarea"></textarea>
-        <button type="button" class="btn btn-info">Add</button>
+        <textarea 
+          class="form-control" 
+          aria-label="With textarea" 
+          
+          maxlength="250"
+          value=""
+          v-model="noteText"
+        >
+        </textarea>
+        <button type="button" class="btn btn-info" @click="addNote">Add</button>
       </div>
     </div>
 
@@ -48,7 +66,8 @@
     <div class="card mb-3"  v-for="card in cards" :key="card.id">
       <div class="card-body">
         <h5 class="card-title">{{ card.title }}</h5>
-        <p class="card-text mb-5">{{ card.text }}</p>
+        <hr>
+        <p class="card-text mb-4">{{ card.text }}</p>
         <hr>
         <div class="card-buttons">
           <button type="button" class="btn btn-success">Complete</button>
