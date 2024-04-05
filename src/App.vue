@@ -1,17 +1,12 @@
 <script>
+  const LS_KEY = 'toDo';
 
   export default {
     data() {
       return {
+        cards: JSON.parse(localStorage.getItem(LS_KEY) || '[]'),
         noteId: 1,
         noteText: '',
-        cards: [
-          {
-            id: 0,
-            title: new Date().toLocaleString(),
-            text: 'some text lorem',
-          },
-        ]
       }
     },
 
@@ -22,10 +17,20 @@
           id: this.noteId++,
           title: new Date().toLocaleString(),
           text: this.noteText,
+          actual: true,
         });
         this.noteText = '';
       }
+    },
+
+    watch: {
+    cards: {
+      handler(cards) {
+        localStorage.setItem(LS_KEY, JSON.stringify(cards))
+      },
+      deep: true
     }
+    },
   }
 </script>
   
@@ -63,7 +68,7 @@
   </nav>
 
   <div class="cards">
-    <div class="card mb-3"  v-for="card in cards" :key="card.id">
+    <div class="card mb-3"  v-for="card in cards" :key="card.id" v-show="card.actual">
       <div class="card-body">
         <h5 class="card-title">{{ card.title }}</h5>
         <hr>
