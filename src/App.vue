@@ -14,7 +14,17 @@
     },
 
     methods: {
+      resetButtonStyle() {
+        this.cards.forEach((i) => {
+          i.hide = false;
+        });
+        this.allClass = 'btn-light';
+        this.activeClass = 'btn-light';
+        this.completedClass = 'btn-light';
+      },
+
       addNote() {
+        this.showActive()
         if (this.noteText.trim().length)
         this.cards.push({
           id: this.noteId++,
@@ -32,34 +42,32 @@
         this.cards[i].hide = true;
       },
 
+      removeNote(index) {
+        this.cards.splice(index, 1);
+      },
+
       showAll() {
-        this.cards.forEach((i) => {
-          i.hide = false;
-        });
+        this.resetButtonStyle();
         this.allClass = 'btn-success';
-        this.activeClass = 'btn-light';
-        this.completedClass = 'btn-light';
       },
 
       showActive() {
-        this.showAll();
+        this.resetButtonStyle();
         this.cards.forEach((i) => {
           if (!i.actual) {
             i.hide = true;
           }
         });
-        this.allClass = 'btn-light';
         this.activeClass = 'btn-success';
       },
 
       showCompleted() {
-        this.showAll();
+        this.resetButtonStyle();
         this.cards.forEach((i) => {
           if (i.actual) {
             i.hide = true;
           }
         });
-        this.allClass = 'btn-light';
         this.completedClass = 'btn-success';
       },
 
@@ -160,7 +168,7 @@
           >
             Complete
           </button>
-          <button type="button" class="btn btn-danger">Remove</button>
+          <button type="button" class="btn btn-danger" @click="removeNote(index)">Remove</button>
           <button type="button" class="btn btn-secondary">Edit</button>
         </div>
       </div>
