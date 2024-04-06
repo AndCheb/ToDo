@@ -25,6 +25,7 @@
 
 .card-text {
   flex-grow: 1;
+  min-height: 72px;
 }
 
 @media (max-width: 870px) {

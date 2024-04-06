@@ -6,7 +6,6 @@
         cards: JSON.parse(localStorage.getItem(LS_KEY) || '[]'),
         noteId: 1,
         noteText: '',
-
         allClass: 'btn-success',
         activeClass: 'btn-light',
         completedClass: 'btn-light',
@@ -34,6 +33,7 @@
           hide: false,
         });
         this.noteText = '';
+        this.$refs.textArea.blur();
       },
 
       checkNote(i) {
@@ -44,6 +44,12 @@
 
       removeNote(index) {
         this.cards.splice(index, 1);
+      },
+
+      editNote(index) {
+        this.noteText = this.cards[index].text;
+        this.removeNote(index);
+        this.$refs.textArea.focus();
       },
 
       showAll() {
@@ -73,7 +79,7 @@
 
       clearCompleted() {
         this.cards = this.cards.filter((i) => i.actual !== false);
-      }
+      },
     },
 
     watch: {
@@ -135,10 +141,10 @@
         <textarea 
           class="form-control" 
           aria-label="With textarea" 
-          
-          maxlength="250"
-          value=""
+          ref="textArea"
+          maxlength="121"
           v-model="noteText"
+          @keyup.enter="addNote"
         >
         </textarea>
         <button type="button" class="btn btn-info" @click="addNote">Add</button>
@@ -169,7 +175,7 @@
             Complete
           </button>
           <button type="button" class="btn btn-danger" @click="removeNote(index)">Remove</button>
-          <button type="button" class="btn btn-secondary">Edit</button>
+          <button type="button" class="btn btn-secondary" @click="editNote(index)">Edit</button>
         </div>
       </div>
     </div>
